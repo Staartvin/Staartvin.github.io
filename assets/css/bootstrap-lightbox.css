@@ -77,3 +77,11 @@ div#mainImage {
   overflow:hidden;
 }
 
+favorite1.box {
+}
+
+img.favoriteImage {
+  max-height:100%;
+  max-width:100%;
+}
+
