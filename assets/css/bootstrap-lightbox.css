@@ -72,13 +72,8 @@ ol.carousel-indicators {
   visibility:hidden;
 }
 
-div#mainImage.col-md-12 {
-  max-height:50%;
-}
-
-#carousel-1 {
-  height:auto;
-  width:auto;
+div#mainImage {
+  height:80vmin;
   overflow:hidden;
 }
 

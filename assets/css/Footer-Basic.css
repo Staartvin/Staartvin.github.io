@@ -72,11 +72,13 @@ div#favoriteDiv.col-lg-6.col-md-6.col-sm-6.col-xs-4 {
   /*vertical-align:top;*/
 }
 
-i.fa.fa-heart {
+#favoriteButton {
   vertical-align:top;
   color:rgba(255,0,0,0.77);
   /*text-align:center;*/
   font-size:500%;
+  /*cursor:hand;*/
+  z-index:20;
 }
 
 img#loadingImage {
@@ -87,5 +89,7 @@ img#loadingImage {
 
 div#favoriteDiv {
   text-align:center;
+  /*margin-top:0;*/
+  z-index:100;
 }
 

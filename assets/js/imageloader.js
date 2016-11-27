@@ -12,26 +12,32 @@ var images = {
     image14: "http://www.thespecialistsltd.com/files/Replica_AK47.jpg",
     image15: "http://sf.co.ua/14/07/wallpaper-1303595.jpg",
     image16: "http://userscontent2.emaze.com/images/79aedbfd-6c65-4a84-bd3f-38c24e7d6c28/8789506b-df47-4d1e-ad47-d5cca2a81a65.jpg",
-    image17: "http://weknowyourdreams.com/images/vegetable/vegetable-02.jpg",
+    image17: "http://www.lougsiegel.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/s/l/sliced_vegetable_platter_1.jpg",
 };
 
 $(document).ready(function() {
     
-   $("#previousButton").on("click", function() {
-       console.log("Previous");
+    $("#previousButton").on("click", function() {
        changeImage("previous");
+       setTimeout(function() {
+            checkFavorite(getPreviousImage());
+        }, 400);
    });
     
     $("#nextButton").on("click", function() {
-      console.log("Next");
-      changeImage("next");
+        changeImage("next");
+        setTimeout(function() {
+            checkFavorite(getNextImage());
+        }, 400);
+        
     });
     
     $("#favoriteButton").click(function() {
-      console.log("Favorite this image"); 
         favoriteImage();
     });
-
+    
+    checkFavorite(getActiveImage());
+    
 });
 
 function changeImage(direction) {
@@ -68,9 +74,6 @@ function addImage() {
         imgChild.attr("id", "image" + nextID);
         
         clone.appendTo(".carousel-inner");
-        
-        console.log("Image source: " + nextSource);
-        console.log("Image ID: image" + nextID);
 }
 
 function favoriteImage() {
@@ -79,27 +82,27 @@ function favoriteImage() {
     var imageID = currentImage.children(":first").attr("id");
     var cookieKey = "favoritedImages";
     
+    var value = true;
+    
     // Check if we already stored an image
     if (getCookie(cookieKey) == "") {
          setCookie(cookieKey, imageID, 365);
     } else {
-        // This image is already stored once.
+        // This image is already stored once, so unfavorite
         if (getCookie(cookieKey).indexOf(imageID) != -1) {
-            return;
+            
+             // Remove image from other images
+            setCookie(cookieKey, getCookie(cookieKey).replace(imageID, ""), 365);
+            value = false;
+            
+        } else {
+            // Add image to other images
+            setCookie(cookieKey, getCookie(cookieKey) + "," + imageID, 365);
         }
-        // Add image to other images
-        setCookie(cookieKey, getCookie(cookieKey) + "," + imageID, 365);
+        
     }
     
-    console.log("DOINT THS");
-    // Show alert message
-    $("#favoriteImgAlert").fadeIn();
-    
-    // Hide message
-    setTimeout(function() {
-         $("#favoriteImgAlert").fadeOut();
-        }, 3000);
-
+   setHeartFavorited(value);
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -122,4 +125,49 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+function isFavorited(imageName) {
+    var cookie = getCookie("favoritedImages");
+    
+    var indexOf = cookie.indexOf(imageName);
+    
+    if (indexOf < 0) {
+        return false;
+    } 
+    
+    return true;
+}
+
+function isHeartFavorited() {
+    return $("#favoriteButton").hasClass("fa-heart");
+}
+
+function setHeartFavorited(boolean) {
+    if (boolean) {
+        $("#favoriteButton").addClass("fa-heart");
+        $("#favoriteButton").removeClass("fa-heart-o");
+    } else {
+        $("#favoriteButton").addClass("fa-heart-o");
+        $("#favoriteButton").removeClass("fa-heart");
+    }
+}
+
+function getActiveImage() {
+    var img = $(".item.active").children(":first");
+    return img.attr("id");
+}
+
+function getNextImage() {
+    var img = $(".item.next").children(":first");
+    return img.attr("id");
+}
+
+function getPreviousImage() {
+    var img = $(".item.prev").children(":first");
+    return img.attr("id");
+}
+
+function checkFavorite(imageName) {    
+    setHeartFavorited(isFavorited(imageName));
 }
