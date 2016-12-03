@@ -38,6 +38,7 @@
 
 .features-boxed .item {
   text-align:center;
+  display:none;
 }
 
 .features-boxed .item .box {

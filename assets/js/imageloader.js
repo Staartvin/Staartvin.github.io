@@ -1,4 +1,7 @@
 var images = {
+    image1: "Greek background.jpg",
+    image2: "http://eskipaper.com/images/girl-background-3.jpg",
+    image3: "https://vsi.chem.tue.nl/images/logo-tue.png",
     image4: "http://hdwallpapersrocks.com/wp-content/uploads/2014/05/Girl-and-boy-friendship.jpg",
     image5: "http://thiswallpaper.com/cdn/hdwallpapers/1109/beautiful%20prague%20city%20widescreen%20wallpaper.jpg",
     image6: "http://dreamatico.com/data_images/lion/lion-8.jpg",
